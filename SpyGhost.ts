@@ -49,9 +49,9 @@ export class SpyGhost {
         this.connectionListner$.unsubscribe();
     }
 
-    private readConnection(): Observable<any> {
+    private readConnection(): Observable<Buffer> {
         return interval(3000).pipe(
-            map( () => this.connection.read() )
+            map( () => this.connection.read() as Buffer )
         )
     }
 
