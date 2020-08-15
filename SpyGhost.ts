@@ -1,6 +1,6 @@
 import * as net from 'net';
-import { Observable, interval }from 'rxjs';
-import { flatMap, takeWhile, map } from 'rxjs/operators';
+import { Observable, interval, Subscription }from 'rxjs';
+import { flatMap, takeWhile, map, tap } from 'rxjs/operators';
 
 export class SpyGhost {
     host: string = '192.168.16.188';
@@ -9,7 +9,7 @@ export class SpyGhost {
     data2 = new Array();
     connection: net.Socket;
     getDataStream: boolean = true;
-
+    connectionListner$: Subscription
     init(): void {
         this.data1[0] = -95;
         this.data1[1] = 88;
@@ -34,23 +34,23 @@ export class SpyGhost {
 
         this.connection = net.connect( { host: this.host, port: this.dataPort }, () => {
             console.log('connected');
-            this.send(new Buffer(this.data1) )
-            setInterval( () => {
-                this.send( new Buffer(this.data2))
-                this.readConnection().subscribe((data: any) => console.log(data) )
-            }, 1000)
-            
+            this.send(Buffer.from(this.data1))
+            this.connectionListner$ = interval(1000).pipe(
+                takeWhile( () => this.getDataStream ),
+                tap( () => this.send( Buffer.from(this.data2))),
+                flatMap( () => this.readConnection())
+            ).subscribe( (data: any) => console.log(data))
         } )
     }
 
     close(): void {
         this.getDataStream = false;
         this.connection.end(() => console.log('connection closed'));
+        this.connectionListner$.unsubscribe();
     }
 
     private readConnection(): Observable<any> {
         return interval(3000).pipe(
-            takeWhile( () => this.getDataStream ),
             map( () => this.connection.read() )
         )
     }
