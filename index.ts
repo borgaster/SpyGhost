@@ -3,9 +3,14 @@ import { Observable, interval, Subscription }from 'rxjs';
 import { flatMap, takeWhile, map, tap } from 'rxjs/operators';
 
 export interface Movement {
-    axis: 2 | 3;
+    axis: Axis;
     value: number;
 
+}
+
+export enum Axis {
+    x = 3,
+    y = 2
 }
 
 export class SpyGhost {
