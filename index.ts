@@ -14,6 +14,7 @@ export enum Axis {
 }
 
 export class SpyGhost {
+    private static instance: SpyGhost;
     host: string = '192.168.16.188';
     dataPort: number = 2001;
     data1 = new Array(); 
@@ -21,7 +22,16 @@ export class SpyGhost {
     connection!: net.Socket;
     getDataStream: boolean = true;
     connectionListner$!: Subscription
-    init(): void {
+    private constructor() {
+        this.init();
+    }
+    static getInstance(): SpyGhost {
+        if( !SpyGhost.instance ) {
+            SpyGhost.instance = new SpyGhost();
+        }
+        return SpyGhost.instance;
+    }
+    private init(): void {
         this.data1[0] = -95;
         this.data1[1] = 88;
         this.data1[2] = 0;
