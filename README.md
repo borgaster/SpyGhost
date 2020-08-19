@@ -25,7 +25,7 @@ This library uses nodejs and Typescript. To handle the data stream to and from t
 ### Installing
 
 ```
-npm install
+npm install spyghost
 ```
 
 ## 🎈 Usage <a name="usage"></a>
