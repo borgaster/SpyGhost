@@ -15,13 +15,13 @@ export enum Axis {
 
 export class SpyGhost {
     private static instance: SpyGhost;
-    host: string = '192.168.16.188';
-    dataPort: number = 2001;
-    data1 = new Array(); 
-    data2 = new Array();
-    connection!: net.Socket;
-    getDataStream: boolean = true;
-    connectionListner$!: Subscription
+    private host: string = '192.168.16.188';
+    private dataPort: number = 2001;
+    private data1 = new Array(); 
+    private data2 = new Array();
+    private connection!: net.Socket;
+    private getDataStream: boolean = true;
+    private connectionListner$!: Subscription
     private constructor() {
         this.init();
     }
