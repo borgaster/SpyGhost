@@ -18,9 +18,9 @@ export class SpyGhost {
     dataPort: number = 2001;
     data1 = new Array(); 
     data2 = new Array();
-    connection: net.Socket;
+    connection!: net.Socket;
     getDataStream: boolean = true;
-    connectionListner$: Subscription
+    connectionListner$!: Subscription
     init(): void {
         this.data1[0] = -95;
         this.data1[1] = 88;

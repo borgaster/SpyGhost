@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A very simple library to control the SpyGhost Wifi car",
   "main": "index.ts",
+  "types": "index.d.ts",
   "scripts": {
     "start": "ts-node index.ts"
   },
