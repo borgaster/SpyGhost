@@ -31,8 +31,7 @@ npm install spyghost
 ## 🎈 Usage <a name="usage"></a>
 
 ```
-const ghost = new SpyGhost();
-ghost.init(); // Establishes a connection. Ensure you're connected to the car's wifi
+const ghost = SpyGhost.getInstance(); // Establishes a connection. Ensure you're connected to the car's wifi 
 ghost.move( movement: Movement ); // Moves the car. 
 ghost.close(); // Closes the connection
 ```
